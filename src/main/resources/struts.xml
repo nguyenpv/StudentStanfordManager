@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE struts PUBLIC
+"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+"http://struts.apache.org/dtds/struts-2.3.dtd">
+<struts>
+	<package name="default" extends="struts-default">
+		<result-types>
+            <result-type name="tiles"
+                class="org.apache.struts2.views.tiles.TilesResult" />
+        </result-types>
+        
+		<interceptors>
+			<interceptor name="authenticationInterceptor" class="com.vietnamarena.interceptors.AuthenticationInterceptor" />
+			<interceptor-stack name="myStack">
+				<interceptor-ref name="defaultStack" />
+				<interceptor-ref name="authenticationInterceptor" />
+			</interceptor-stack>
+		</interceptors>
+
+		<!-- <default-interceptor-ref name="authenticationInterceptor" /> -->
+        
+		<action name="login" class="com.vietnamarena.action.LoginAction">
+			<result name="login">login.jsp</result>
+			<result name="success" type="redirectAction">home</result>
+		</action>
+		
+		<action name="registerUser" class="com.vietnamarena.action.LoginAction" method="registerUser">
+			<result>success.jsp</result>
+			<result name="input">failure.jsp</result>
+		</action>
+		
+		<action name="doLogin" class="com.vietnamarena.action.LoginAction" method="loginUser">
+			<!-- <result>home.jsp</result> -->
+			<result name="success" type="redirectAction">home</result>
+			<result name="input">login.jsp</result>
+		</action>
+		
+		<action name="doLogout" class="com.vietnamarena.action.LogoutAction">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result>login.jsp</result>
+			<result name="input">login.jsp</result>
+			<result name="login">login.jsp</result>
+		</action>
+		
+		<action name="home" class="com.vietnamarena.action.HomeAction">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="success" type="tiles">/home.tiles</result>
+			<result name="login">login.jsp</result>
+		</action>
+		
+		<action name="retrieveWeatherInfo" class="com.vietnamarena.action.WeatherInfoAction">
+			<result>/pages/weatherInfo.jsp</result>
+		</action>
+		
+		<action name="manageStudents" class="com.vietnamarena.action.ManageStudentAction">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="success" type="tiles">/manageStudents.tiles</result>
+			<result name="login">login.jsp</result>
+		</action>
+		
+		<action name="viewStudentCreation" class="com.vietnamarena.action.ViewStudentCreationAction">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="success" type="tiles">/createStudent.tiles</result>
+			<result name="login">login.jsp</result>
+		</action>
+		
+		<action name="createStudent" class="com.vietnamarena.action.CreateStudentAction">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="login">login.jsp</result>
+			<result name="success" type="tiles">/success.tiles</result>
+			<result name="input" type="tiles">/createStudent.tiles</result>
+			<result name="error" type="tiles">/error.tiles</result>
+		</action>
+		
+		<action name="doSearchStudent" class="com.vietnamarena.action.SearchStudentAction">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="success" type="tiles">/studentList.tiles</result>
+			<result name="login">login.jsp</result>
+		</action>
+		
+		<action name="doRemoveStudents" class="com.vietnamarena.action.DeleteStudentAction">
+			<interceptor-ref name="myStack"></interceptor-ref>
+			<result name="success" type="tiles">/success.tiles</result>
+			<result name="error" type="tiles">/error.tiles</result>
+			<result name="login">login.jsp</result>
+		</action>
+		
+		<action name="viewUpdateStudent" class="com.vietnamarena.action.ViewStudentUpdateAction">
+			<interceptor-ref name="myStack" />
+			<result name="success" type="tiles">/updateStudent.tiles</result>
+			<result name="login">login.jsp</result>
+		</action>
+		
+		<action name="doUpdateStudent" class="com.vietnamarena.action.UpdateStudentAction">
+			<interceptor-ref name="myStack" />
+			<result name="success" type="tiles">/success.tiles</result>
+			<result name="login">login.jsp</result>
+			<result name="input" type="tiles">/updateStudent.tiles</result>
+			<result name="error" type="tiles">/error.tiles</result>
+		</action>
+		
+		<action name="test" class="com.vietnamarena.action.TestAction">
+			<interceptor-ref name="myStack" />
+			<result>test.jsp</result>
+			<result name="login">login.jsp</result>
+		</action>
+	</package>
+</struts>

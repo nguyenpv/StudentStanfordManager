@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+ 
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="baseLayout" template="/template/BaseLayout.jsp">
+        <put-attribute name="title" value="" />
+        <put-attribute name="header" value="/template/Header.jsp" />
+        <put-attribute name="menu" value="/template/Menu.jsp" />
+        <put-attribute name="body" value="" />
+        <put-attribute name="footer" value="/template/Footer.jsp" />
+    </definition>
+    <definition name="/home.tiles" extends="baseLayout">
+        <put-attribute name="title" value="The Student Manager" />
+        <put-attribute name="body" value="/pages/home.jsp" />
+    </definition>
+    <definition name="/manageStudents.tiles" extends="baseLayout">
+        <put-attribute name="title" value="The Student Manager" />
+        <put-attribute name="body" value="/pages/manageStudents.jsp" />
+    </definition>
+    <definition name="/studentList.tiles" extends="baseLayout">
+        <put-attribute name="title" value="The Student Manager" />
+        <put-attribute name="body" value="/pages/studentList.jsp" />
+    </definition>
+    <definition name="/createStudent.tiles" extends="baseLayout">
+        <put-attribute name="title" value="The Student Manager" />
+        <put-attribute name="body" value="/pages/createStudent.jsp" />
+    </definition>
+    <definition name="/updateStudent.tiles" extends="baseLayout">
+        <put-attribute name="title" value="The Student Manager" />
+        <put-attribute name="body" value="/pages/updateStudent.jsp" />
+    </definition>
+    <definition name="/error.tiles" extends="baseLayout">
+        <put-attribute name="title" value="The Student Manager" />
+        <put-attribute name="body" value="/pages/error.jsp" />
+    </definition>
+    <definition name="/success.tiles" extends="baseLayout">
+        <put-attribute name="title" value="The Student Manager" />
+        <put-attribute name="body" value="/pages/success.jsp" />
+    </definition>
+</tiles-definitions>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:aop="http://www.springframework.org/schema/aop" 
+		xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd">
+	
+	<bean id="loginAction" class="com.vietnamarena.action.LoginAction">
+		<property name="userService" ref="userService" />
+	</bean>
+	<bean id="createStudentAction" class="com.vietnamarena.action.CreateStudentAction">
+		<property name="studentService" ref="studentService" />
+	</bean>
+	<bean id="searchStudentAction" class="com.vietnamarena.action.SearchStudentAction">
+		<property name="studentService" ref="studentService" />
+	</bean>
+	<bean id="viewStudentUpdateAction" class="com.vietnamarena.action.ViewStudentUpdateAction">
+		<property name="studentService" ref="studentService" />
+	</bean>
+	<bean id="updateStudentAction" class="com.vietnamarena.action.UpdateStudentAction">
+		<property name="studentService" ref="studentService" />
+	</bean>
+	<bean id="weatherInfoAction" class="com.vietnamarena.action.WeatherInfoAction">
+		<property name="weatherCacheUtil" ref="weatherCacheUtil" />
+	</bean>
+</beans>

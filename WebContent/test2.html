@@ -1,0 +1,79 @@
+<html>
+<head>
+<script src="http://code.jquery.com/jquery-1.9.1.min.js"></script>
+<script src="http://code.jquery.com/jquery-migrate-1.1.1.min.js"></script>
+<script>
+  var scrollInAction = false;
+  $(window).scroll(function(){
+   console.log($(window).scrollTop() >= ($(document).height() - $(window).height() - 200));
+      if  ($(window).scrollTop() >= ($(document).height() - $(window).height() - 200)){
+       
+       if (scrollInAction)
+          {
+           return false;
+          }else
+          {
+        scrollInAction=true;
+           //do stuff // load of more content here
+           yourFunction();
+
+//           scrollInAction=false; // TODO: PUT this scrollInAction=false after ajax loading is completed.
+          }
+      }
+  });
+  var index = 0 ;
+  function yourFunction(){
+   // AJAX Data Loading Logic
+   $("#lisitingDiv").append("<div id='subDiv' name='subDiv'><label>Index " + index + "</label></div>");
+   $("#lisitingDiv").append("
+");
+   index = index + 1 ;
+
+   if(index > 500) // 500 is limit after which auto scrolling will be disabled...
+   {
+    scrollInAction=true;
+   }else
+   {
+    scrollInAction=false;
+   }
+  }
+
+  function onLoad(){
+   for(i=0;i<25;i++)
+   {
+    yourFunction(); 
+   }
+  }
+ </script>
+<style>
+label {
+	-moz-border-bottom-colors: none;
+	-moz-border-left-colors: none;
+	-moz-border-right-colors: none;
+	-moz-border-top-colors: none;
+	background-color: #FFFFEC;
+	border-color: #EEEECC;
+	border-image: none;
+	border-style: solid;
+	border-width: 0 1px;
+	color: #000000;
+	font-size: 100%;
+	margin: 0;
+	padding: 0.25em 27px;
+	display: block;
+	text-decoration: none;
+}
+
+#subDiv {
+	margin: 3px auto;
+	position: relative;
+	width: 720px;
+}
+</style>
+</head>
+<body onload="onLoad()">
+	<p style="position: fixed;">Scroll Down..... It will scroll till
+		Index 500.</p>
+	<div id="lisitingDiv" name="lisitingDiv"></div>
+</body>
+</html>

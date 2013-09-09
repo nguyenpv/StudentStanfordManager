@@ -1,0 +1,103 @@
+<!-- 
+    This build.xml is used to build the Stanford Student Manager
+    available on http://localhost:8080/StanfordStudentManager
+    author: Nguyen Phan
+-->
+<project name="StanfordStudentManager" default="war" basedir=".">
+
+
+	<description>
+        Compiles and builds the WAR file for the Stanford Student Manager Webapp project.
+    </description>
+	<!-- set global properties for this build -->
+	<property file="build.properties" />
+	<property name="build" location="build"/>
+
+
+	<!-- Build classpath -->
+
+	<path id="project.classpath">
+		<!--Referencing common jars here-->
+		<fileset dir="${lib.dir}">
+			<include name="**/*.jar"/>
+		</fileset>
+	</path>
+
+	<!-- All WAR related Tasks -->
+
+	<!-- Note - Delete the existing classes before each build -->
+	<target name="compile-clean" depends="DisplayProperties">
+		<echo message="Deleting existing classes folder" />
+		<delete dir="${basedir}/WebContent/WEB-INF/classes"></delete>
+		<echo message="Deleting existing deploy folder" />
+		<delete dir="${dist.dir}"></delete>
+		<mkdir dir="${basedir}/WebContent/WEB-INF/classes" />
+		<mkdir dir="${dist.dir}" />
+	</target>
+
+	<target name="clean.build" depends="compile-clean"
+		description="Compile java files">
+		<javac destdir="${basedir}/WebContent/WEB-INF/classes" debug="true"
+			deprecation="false" optimize="false" failonerror="true">
+			<src path="${src.dir}" />
+			<classpath refid="project.classpath" />
+		</javac>
+	</target>
+
+	<!-- Note - WAR target -->
+	<target name="war" depends="clean.build"
+		description="Packages app as WAR">
+	
+		<copy todir="${basedir}/WebContent/WEB-INF/classes">
+			<fileset dir="${basedir}/src/main/resources">
+				<include name="**/*.properties" />
+				<include name="**/*.xml" />
+			</fileset>
+		</copy>
+
+		<war destfile="${dist.dir}/${webapp.name}.war"
+			webxml="${basedir}/WebContent/WEB-INF/web.xml">
+			<classes dir="${basedir}/WebContent/WEB-INF/classes" includes="**/*.class,**/*.properties"/>
+			<fileset dir="${basedir}/WebContent">
+				<exclude name="**/*.jar" />
+				<exclude name="**/*.class" />
+				<exclude name="**/*.properties" />
+			</fileset>
+			<!-- <fileset dir="${basedir}/WebContent/css" />
+    		<fileset dir="${basedir}/WebContent/js" />
+    		<fileset dir="${basedir}/WebContent/images" />
+    		<fileset dir="${basedir}/WebContent/jquery-ui" />
+			<fileset dir="${basedir}/WebContent/META-INF" /> -->
+			<lib dir="${basedir}/WebContent/WEB-INF/lib" />
+		</war>
+	</target>
+
+
+	<target name="deploywar" depends="war" description="Deploy application as a WAR file">
+		<copy todir="${tomcat.home}/webapps" preservelastmodified="true" file="${dist.dir}/${webapp.name}.war"/>
+	</target>
+
+
+	<!-- End All WAR related Tasks -->
+
+	<!-- Note - Single target                -->
+	<target name="DisplayProperties">
+		<echo message="ant.file = ${ant.file}" />
+		<echo message="ant.home = ${ant.home}" />
+		<echo message="ant.project.name = ${ant.project.name}" />
+		<echo message="ant.java.version = ${ant.java.version}" />
+		<echo message="ant.version = ${ant.version}" />
+		<echo message="basedir = ${basedir}" />
+
+		<echo message="user.name = ${user.name}" />
+		<echo message="user.home = ${user.home}" />
+		<echo message="java.home = ${java.home}" />
+		<!-- Custom Properties -->
+		<echo message="project.home = ${project.home}" />
+		<echo message="unittests.home = ${unittests.home}" />
+		<echo message="class.path = ${project.classpath.local}" />
+		<echo message="ant.path = ${ant.core.lib}" />
+		<!--<echo message="classpath.base = ${java.class.path}" />-->
+	</target>
+
+</project>
